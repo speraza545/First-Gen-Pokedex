@@ -1,4 +1,4 @@
-require "pry"
+
 
 class Pokemon
     attr_accessor :name, :url, :abilities, :height, :moves, :type, :stats, :weight, :id
