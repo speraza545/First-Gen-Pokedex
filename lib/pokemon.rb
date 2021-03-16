@@ -20,5 +20,4 @@ class Pokemon
     # def self.stats=(stats_array)
     #     @stats = stats_array.map { |key, value| [key, value]}
     # end
-
 end

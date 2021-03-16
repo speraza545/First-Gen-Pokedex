@@ -1,3 +1,5 @@
+require "pry"
+
 class CLI
     def run
         #greet user
@@ -62,17 +64,24 @@ class CLI
 
     def menu
         puts "
-            Please choose a number between 1 and #{Pokemon.all.count} to see more info"
+        Please choose a number between 1 and #{Pokemon.all.count} to see more info, or type N/n to exit"
         input =  gets.strip
         # make sure user input is good
         # checks if user input is between 1 and the count of the array we are using
-        if !input.to_i.between?(1, Pokemon.all.count)
-            # if invalid, it repeats the menu asking for a number
-            menu
+        if input == "N" || input == "n"
+            exit
         else
-            # if valid, it grabs the pokemon details
-            pokemon = Pokemon.all[input.to_i-1]
-            display_pokemon_details(pokemon)
+            if !input.to_i.between?(1, Pokemon.all.count)
+                desired_pokemon = ""
+                Pokemon.all.each do |pokemon|
+                    desired_pokemon = pokemon if pokemon.name == input.downcase
+                end
+                desired_pokemon == "" ? menu : display_pokemon_details(desired_pokemon)
+            else
+                # if valid, it grabs the pokemon details
+                pokemon = Pokemon.all[input.to_i-1]
+                display_pokemon_details(pokemon)
+            end
         end
     end
 

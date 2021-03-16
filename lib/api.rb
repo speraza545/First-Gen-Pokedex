@@ -1,6 +1,9 @@
-URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=151"
+require "pry"
+
+# URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=151"
 
 class API
+    URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=151"
     def self.get_pokemon
         uri = URI.parse(URL)
         response = Net::HTTP.get_response(uri)
@@ -40,7 +43,6 @@ class API
 
         pokemon.id = pokemon_hash["id"]
     end
-
 end
 
 # def self.load_character_details(pokemon)
