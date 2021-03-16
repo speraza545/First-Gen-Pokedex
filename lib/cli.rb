@@ -65,9 +65,12 @@ class CLI
             Please choose a number between 1 and #{Pokemon.all.count} to see more info"
         input =  gets.strip
         # make sure user input is good
+        # checks if user input is between 1 and the count of the array we are using
         if !input.to_i.between?(1, Pokemon.all.count)
+            # if invalid, it repeats the menu asking for a number
             menu
         else
+            # if valid, it grabs the pokemon details
             pokemon = Pokemon.all[input.to_i-1]
             display_pokemon_details(pokemon)
         end
