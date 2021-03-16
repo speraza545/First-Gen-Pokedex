@@ -3,6 +3,16 @@ require "pry"
 class CLI
     def run
         #greet user
+        greeting
+        # call get_pokemon
+        API.get_pokemon
+        # call list of pokemon
+        page_switcher
+        # list_pokemon
+        menu
+    end
+
+    def greeting
         puts "
                 ────────▄███████████▄──────── 
                 ─────▄███▓▓▓▓▓▓▓▓▓▓▓███▄─────
@@ -47,21 +57,51 @@ class CLI
         puts "
             Please choose a pokemon from the list below"
         puts " "
-        # call get_pokemon
-        API.get_pokemon
-        # call list of pokemon
+    end
+
+    def page_switcher
+        current_page = 0
         list_pokemon
+        puts " "
+        puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+        input = gets.strip
+        while input.downcase != "stop"
+            if input.downcase == "next"
+                current_page += 1
+                greeting
+                list_pokemon(current_page)
+                puts " "
+                puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+                input = gets.strip
+            elsif input.downcase == "prev"
+                current_page -=1
+                greeting
+                list_pokemon(current_page)
+                puts " "
+                puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+                input = gets.strip
+            elsif input.downcase == "n"
+                goodbye
+                exit
+            else 
+                puts "invalid input, type next, prev, stop, or n"
+                input = gets.strip
+            end
+        end
         menu
     end
 
-    def list_pokemon
-        # call pokemon.all and loop it to list pokemon
-        Pokemon.all.each.with_index(1) do |pkmn, i|
-            puts "
-                            #{i}) #{pkmn.name}"
+    def list_pokemon(current_page=0)
+        revised_pokemon_list = Pokemon.all.each_slice(20).to_a
+        revised_pokemon_list[current_page].each do |pokemon|
+            puts "                             #{pokemon.url.gsub("v2", "").match(/\d+/)}) #{pokemon.name}"
         end
+        # # call pokemon.all and loop it to list pokemon
+        # Pokemon.all.each.with_index(1) do |pkmn, i|
+        #     puts "
+        #                     #{i}) #{pkmn.name}"
+        # end
     end
-
     def menu
         puts "
                 Please choose a number between 1 and #{Pokemon.all.count}\n            (or type in the pokemon's name) to see more info. \n                       Type N/n to exit at any time."
@@ -69,14 +109,19 @@ class CLI
         # make sure user input is good
         # checks if user input is between 1 and the count of the array we are using
         if input == "N" || input == "n"
+            goodbye
             exit
         else
             if !input.to_i.between?(1, Pokemon.all.count)
-                desired_pokemon = ""
-                Pokemon.all.each do |pokemon|
-                    desired_pokemon = pokemon if pokemon.name == input.downcase
+                if input.downcase == "back"
+                    page_switcher
+                else
+                    desired_pokemon = ""
+                    Pokemon.all.each do |pokemon|
+                        desired_pokemon = pokemon if pokemon.name == input.downcase
+                    end
+                    desired_pokemon == "" ? menu : display_pokemon_details(desired_pokemon)
                 end
-                desired_pokemon == "" ? menu : display_pokemon_details(desired_pokemon)
             else
                 # if valid, it grabs the pokemon details
                 pokemon = Pokemon.all[input.to_i-1]
@@ -121,12 +166,27 @@ class CLI
         puts "Would you like to look up another pokemon? (Y/N)"
         input = gets.strip
         if input.capitalize == "Y"
-            list_pokemon
-            menu
+            greeting
+            page_switcher
         elsif input.capitalize == "N"
+            goodbye
             exit
         else
             search_again
         end
     end
+
+    def goodbye
+        puts "
+         _____ _           _                     ___           
+        |_   _| |_ ___ ___| |_    _ _ ___ _ _   |  _|___ ___   
+          | | |   | .'|   | '_|  | | | . | | |  |  _| . |  _|  
+          |_| |_|_|__,|_|_|_,_|  |_  |___|___|  |_| |___|_|    
+         _ _ ___|_|___ ___    ___|___|___    ___ ___ ___       
+        | | |_ -| |   | . |  | . | | |  _|  | .'| . | . |      
+        |___|___|_|_|_|_  |  |___|___|_|    |__,|  _|  _|      
+                      |___|                     |_| |_|  "
+
+    end
+
 end
