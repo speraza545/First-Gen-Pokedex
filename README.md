@@ -11,3 +11,9 @@ This CLI program's purpose is to relive some nostoliga by allowing you to look u
 3) Open your terminal and CD into the program
 4) Run bin/pokemon_environment
 5) follow terminal prompts
+
+#### Contributing
+Any bugs or pull requests are welcome on [Github](https://github.com/speraza545/First-Gen-Pokedex/tree/main). 
+
+#### License
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
