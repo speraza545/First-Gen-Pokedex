@@ -64,7 +64,7 @@ class CLI
 
     def menu
         puts "
-        Please choose a number between 1 and #{Pokemon.all.count} to see more info, or type N/n to exit"
+        Please choose a number between 1 and #{Pokemon.all.count} (or type in the pokemon's name) to see more info. \n                                       Type N/n to exit at any time."
         input =  gets.strip
         # make sure user input is good
         # checks if user input is between 1 and the count of the array we are using
