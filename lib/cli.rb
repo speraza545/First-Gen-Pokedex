@@ -8,8 +8,6 @@ class CLI
         API.get_pokemon
         # call list of pokemon
         page_switcher
-        # list_pokemon
-        menu
     end
 
     def greeting
