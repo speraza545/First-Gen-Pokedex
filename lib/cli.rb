@@ -74,7 +74,7 @@ class CLI
             elsif input.downcase == "prev"
                 current_page -=1
                 if current_page > Pokemon.all.count/20.to_i || current_page < 0
-                    current_page = 0
+                    current_page = Pokemon.all.count/20.to_i
                 end
                 greeting
                 list_pokemon(current_page)
