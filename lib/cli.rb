@@ -58,7 +58,8 @@ class CLI
         current_page = 0
         list_pokemon
         puts " "
-        puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+        instructions = "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+        puts instructions
         input = gets.strip
         while input.downcase != "stop"
             if input.downcase == "next"
@@ -69,7 +70,7 @@ class CLI
                 greeting
                 list_pokemon(current_page)
                 puts " "
-                puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+                puts instructions
                 input = gets.strip
             elsif input.downcase == "prev"
                 current_page -=1
@@ -79,7 +80,7 @@ class CLI
                 greeting
                 list_pokemon(current_page)
                 puts " "
-                puts "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+                puts instructions
                 input = gets.strip
             elsif input.downcase == "n"
                 goodbye
