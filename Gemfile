@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+gem "json"
+gem "net-http"
+gem "open-uri"
+gem "pry"
 
-# gem "rails"
