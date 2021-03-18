@@ -104,7 +104,7 @@ class CLI
     end
     def menu
         puts "
-                Please choose a number between 1 and #{Pokemon.all.count}\n            (or type in the pokemon's name) to see more info. \n                       Or type exit at any time."
+                Please choose a number between 1 and #{Pokemon.all.count}\n            (or type in the pokemon's name) to see more info. \n                   Type back to scroll through pokemon\n                       Or type exit at any time."
         input =  gets.strip
         # make sure user input is good
         # checks if user input is between 1 and the count of the array we are using
@@ -114,6 +114,7 @@ class CLI
         else
             if !input.to_i.between?(1, Pokemon.all.count)
                 if input.downcase == "back"
+                    greeting
                     page_switcher
                 else
                     desired_pokemon = ""
