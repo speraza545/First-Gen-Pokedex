@@ -58,7 +58,7 @@ class CLI
         current_page = 0
         list_pokemon
         puts " "
-        instructions = "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop. Type n to exit"
+        instructions = "    Please type next or prev to see more pokemon. When you are ready\n             to make a selection type stop, or type exit"
         puts instructions
         input = gets.strip
         while input.downcase != "stop"
@@ -82,11 +82,11 @@ class CLI
                 puts " "
                 puts instructions
                 input = gets.strip
-            elsif input.downcase == "n"
+            elsif input.downcase == "exit"
                 goodbye
                 exit
             else 
-                puts "invalid input, type next, prev, stop, or n"
+                puts "invalid input, type next, prev, stop, or exit"
                 input = gets.strip
             end
         end
@@ -106,11 +106,11 @@ class CLI
     end
     def menu
         puts "
-                Please choose a number between 1 and #{Pokemon.all.count}\n            (or type in the pokemon's name) to see more info. \n                       Type N/n to exit at any time."
+                Please choose a number between 1 and #{Pokemon.all.count}\n            (or type in the pokemon's name) to see more info. \n                       Or type exit at any time."
         input =  gets.strip
         # make sure user input is good
         # checks if user input is between 1 and the count of the array we are using
-        if input == "N" || input == "n"
+        if input.downcase == "exit"
             goodbye
             exit
         else
